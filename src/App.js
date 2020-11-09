@@ -4,15 +4,25 @@ import Pages from './pages';
 // styles
 import GlobalStyle from './components/GlobalStyle';
 
-// routes
-import Routes from './pages';
+// apollo client 
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+
+const uri = process.env.REACT_APP_API_URI;
+const cache = new InMemoryCache();
+
+//configure apollo client
+const client = new ApolloClient({
+  uri,
+  cache,
+  connectToDevTools: true
+});
 
 function App() {
   return (
-    <div className="App">
+    <ApolloProvider client={client}>
       <GlobalStyle />
       <Pages />
-    </div>
+    </ApolloProvider>
   );
 }
 
